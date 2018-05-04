@@ -5,30 +5,6 @@ CODE SEGMENT
 ;-----------------------------------------------------
 START: 
 	JMP BEGIN
-;ПРОЦЕДУРЫ
-;-----------------------------------------------------
-TETR_TO_HEX   PROC  near
-	and      AL,0Fh
-	cmp      AL,09
-	jbe      NEXT
-	add      AL,07
-	NEXT:      add      AL,30h
-	ret
-TETR_TO_HEX   ENDP
-;-----------------------------------------------------
-BYTE_TO_HEX   PROC  near
-; байт в AL переводится в два символа шестн. числа в AX
-	push     CX
-	mov      AH,AL
-	call     TETR_TO_HEX
-	xchg     AL,AH
-	mov      CL,4
-	shr      AL,CL
-	call     TETR_TO_HEX ;в AL старшая цифра
-	pop      CX          ;в AH младшая
-	ret
-BYTE_TO_HEX  ENDP
-;-----------------------------------------------------
 ;подготовка места и освобождение памяти 
 Mem_proc PROC 
 		lea bx,Last_byte 
